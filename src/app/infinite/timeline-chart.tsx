@@ -138,9 +138,9 @@ export function TimelineChart({
             />
           }
         />
-        <Bar dataKey="500" stackId="a" fill="var(--color-500)" />
-        <Bar dataKey="400" stackId="a" fill="var(--color-400)" />
-        <Bar dataKey="200" stackId="a" fill="var(--color-200)" />
+        <Bar dataKey="failed" stackId="a" fill="var(--color-500)" />
+        <Bar dataKey="others" stackId="a" fill="var(--color-200)" />
+        <Bar dataKey="success" stackId="a" fill="var(--color-200)" />
         {refAreaLeft && refAreaRight && (
           <ReferenceArea
             x1={refAreaLeft}

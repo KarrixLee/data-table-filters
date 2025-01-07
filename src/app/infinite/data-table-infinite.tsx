@@ -94,12 +94,10 @@ export function DataTableInfinite<TData, TValue>({
   );
   const [columnVisibility, setColumnVisibility] =
     useLocalStorage<VisibilityState>("data-table-visibility", {
-      uuid: false,
-      "timing.dns": false,
-      "timing.connection": false,
-      "timing.tls": false,
-      "timing.ttfb": false,
-      "timing.transfer": false,
+      id: false,
+      "workflow name": false,
+      machine: false,
+      origin: false,
     });
   const [controlsOpen, setControlsOpen] = useLocalStorage(
     "data-table-controls",
@@ -240,10 +238,10 @@ export function DataTableInfinite<TData, TValue>({
               filterFields={filterFields}
             />
           </div>
-          {/* <Separator className="my-2" />
+          <Separator className="my-2" />
           <div className="p-2">
             <SocialsFooter />
-          </div> */}
+          </div>
         </div>
         <div
           className={cn(
@@ -313,18 +311,25 @@ export function DataTableInfinite<TData, TValue>({
               <TableBody>
                 {/* FIXME: should be getRowModel() as filtering */}
                 {table.getRowModel().rows?.length ? (
-                  table.getRowModel().rows.map((row) => (
+                  table.getRowModel().rows.map((row, index) => (
                     <TableRow
                       key={row.id}
                       data-state={row.getIsSelected() && "selected"}
                       onClick={() => row.toggleSelected()}
+                      className={cn(
+                        "border-0 h-0 my-1",
+                        index % 2 === 0 && "bg-gray-50",
+                        row.getValue("status") === "failed" &&
+                          "bg-red-500/10 text-red-500 hover:bg-red-400/10"
+                      )}
                     >
                       {row.getVisibleCells().map((cell) => (
                         <TableCell
                           key={cell.id}
-                          className={
-                            cell.column.columnDef.meta?.headerClassName
-                          }
+                          className={cn(
+                            cell.column.columnDef.meta?.headerClassName,
+                            "py-1"
+                          )}
                         >
                           {flexRender(
                             cell.column.columnDef.cell,

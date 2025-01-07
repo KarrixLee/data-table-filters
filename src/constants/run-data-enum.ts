@@ -24,9 +24,6 @@ export const ORIGIN = [
   "manual",
   "api",
   "public-share",
-  "public-template",
-  "workspace",
-  "workspace-v2",
 ] as const;
 
 export const MACHINE_TYPE = [
