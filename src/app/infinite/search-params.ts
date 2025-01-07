@@ -19,7 +19,7 @@ import {
 } from "@/lib/delimiters";
 import { REGIONS } from "@/constants/region";
 import { METHODS } from "@/constants/method";
-import { GPU, STATUS } from "@/constants/run-data-enum";
+import { GPU, ORIGIN, STATUS } from "@/constants/run-data-enum";
 
 // https://logs.run/i?sort=latency.desc
 
@@ -59,6 +59,7 @@ export const searchParamsParser = {
 
   gpu: parseAsArrayOf(parseAsStringLiteral(GPU), ARRAY_DELIMITER),
   status: parseAsArrayOf(parseAsStringLiteral(STATUS), ARRAY_DELIMITER),
+  origin: parseAsArrayOf(parseAsStringLiteral(ORIGIN), ARRAY_DELIMITER),
 };
 
 export const searchParamsCache = createSearchParamsCache(searchParamsParser);

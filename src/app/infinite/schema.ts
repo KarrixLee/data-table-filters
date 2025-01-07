@@ -1,4 +1,4 @@
-import { GPU, STATUS } from "@/constants/run-data-enum";
+import { GPU, ORIGIN, STATUS } from "@/constants/run-data-enum";
 import { ARRAY_DELIMITER, RANGE_DELIMITER } from "@/lib/delimiters";
 import { z } from "zod";
 
@@ -7,6 +7,14 @@ export const columnSchema = z.object({
   created_at: z.date(),
   gpu: z.enum(GPU),
   status: z.enum(STATUS),
+  origin: z.enum(ORIGIN),
+  workflow: z.object({
+    name: z.string(),
+  }),
+  machine: z.object({
+    name: z.string(),
+  }),
+  workflow_version: z.string(),
 });
 
 export type ColumnSchema = z.infer<typeof columnSchema>;
@@ -26,6 +34,11 @@ export const columnFilterSchema = z.object({
     .string()
     .transform((val) => val.split(ARRAY_DELIMITER))
     .pipe(z.enum(GPU).array())
+    .optional(),
+  origin: z
+    .string()
+    .transform((val) => val.split(ARRAY_DELIMITER))
+    .pipe(z.enum(ORIGIN).array())
     .optional(),
 });
 

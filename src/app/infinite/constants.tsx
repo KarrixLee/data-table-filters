@@ -9,7 +9,7 @@ import type {
 import { getStatusColor } from "@/lib/request/status-code";
 import { METHODS } from "@/constants/method";
 import { REGIONS } from "@/constants/region";
-import { GPU, STATUS } from "@/constants/run-data-enum";
+import { GPU, ORIGIN, STATUS } from "@/constants/run-data-enum";
 
 export const filterFields = [
   {
@@ -30,5 +30,11 @@ export const filterFields = [
     value: "status",
     type: "checkbox",
     options: STATUS.map((status) => ({ label: status, value: status })),
+  },
+  {
+    label: "Origin",
+    value: "origin",
+    type: "checkbox",
+    options: ORIGIN.map((origin) => ({ label: origin, value: origin })),
   },
 ] satisfies DataTableFilterField<ColumnSchema>[];

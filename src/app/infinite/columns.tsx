@@ -3,7 +3,7 @@
 import type { ColumnDef } from "@tanstack/react-table";
 import { Check, Minus, X } from "lucide-react";
 import type { ColumnSchema } from "./schema";
-import { format } from "date-fns";
+import { format, formatDistanceToNow } from "date-fns";
 import { getStatusColor } from "@/lib/request/status-code";
 import { regions } from "@/constants/region";
 import {
@@ -25,17 +25,6 @@ import { UTCDate } from "@date-fns/utc";
 const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
 export const columns: ColumnDef<ColumnSchema>[] = [
-  // {
-  //   accessorKey: "success",
-  //   header: "",
-  //   cell: ({ row }) => {
-  //     const value = row.getValue("success");
-  //     if (value) return <Check className="h-4 w-4 text-green-500/60" />;
-  //     return <X className="h-4 w-4 text-red-500" />;
-  //   },
-  //   filterFn: "arrSome",
-  //   meta: { headerClassName: "w-4" },
-  // },
   {
     id: "id",
     accessorKey: "id",
@@ -43,7 +32,10 @@ export const columns: ColumnDef<ColumnSchema>[] = [
     cell: ({ row }) => {
       const value = row.getValue("id") as string;
       return (
-        <TextWithTooltip className="font-mono max-w-[85px]" text={value} />
+        <TextWithTooltip
+          className="font-mono text-xs max-w-[85px]"
+          text={value}
+        />
       );
     },
     meta: {
@@ -60,8 +52,8 @@ export const columns: ColumnDef<ColumnSchema>[] = [
       return (
         <HoverCard openDelay={0} closeDelay={0}>
           <HoverCardTrigger asChild>
-            <div className="font-mono whitespace-nowrap">
-              {format(date, "LLL dd, y HH:mm:ss")}
+            <div className="whitespace-nowrap">
+              {formatDistanceToNow(date, { addSuffix: true })}
             </div>
           </HoverCardTrigger>
           <HoverCardContent
@@ -103,9 +95,7 @@ export const columns: ColumnDef<ColumnSchema>[] = [
     filterFn: "arrIncludesSome",
     cell: ({ row }) => {
       const value = row.getValue("gpu") as string;
-      return (
-        <TextWithTooltip className="font-mono max-w-[120px]" text={value} />
-      );
+      return <TextWithTooltip className="max-w-[120px]" text={value} />;
     },
   },
   {
@@ -114,36 +104,43 @@ export const columns: ColumnDef<ColumnSchema>[] = [
     filterFn: "arrIncludesSome",
     cell: ({ row }) => {
       const value = row.getValue("status") as string;
-      return (
-        <TextWithTooltip className="font-mono max-w-[120px]" text={value} />
-      );
+      return <TextWithTooltip className="max-w-[120px]" text={value} />;
     },
   },
-  // {
-  //   accessorKey: "status",
-  //   header: "Status",
-  //   cell: ({ row }) => {
-  //     const value = row.getValue("status");
-  //     if (typeof value === "undefined") {
-  //       return <Minus className="h-4 w-4 text-muted-foreground/50" />;
-  //     }
-  //     if (typeof value === "number") {
-  //       const colors = getStatusColor(value);
-  //       return <div className={`${colors.text} font-mono`}>{value}</div>;
-  //     }
-  //     return <div className="text-muted-foreground">{`${value}`}</div>;
-  //   },
-  //   filterFn: "arrSome",
-  // },
+  {
+    accessorKey: "origin",
+    header: "Origin",
+    filterFn: "arrIncludesSome",
+    cell: ({ row }) => {
+      const value = row.getValue("origin") as string;
+      return <TextWithTooltip className="max-w-[120px]" text={value} />;
+    },
+  },
+  {
+    accessorKey: "workflow name",
+    header: "Workflow Name",
+    accessorFn: (row) => row.workflow?.name,
+    cell: ({ row }) => {
+      const value = row.getValue("workflow name") as string;
+      return <TextWithTooltip className="max-w-[200px]" text={value} />;
+    },
+  },
+  {
+    accessorKey: "version",
+    header: "Workflow Version",
+    accessorFn: (row) => row.workflow_version,
+    cell: ({ row }) => {
+      const value = row.getValue("version") as string;
+      return <TextWithTooltip className="max-w-[100px]" text={`v${value}`} />;
+    },
+  },
+  {
+    accessorKey: "machine",
+    header: "Machine",
+    accessorFn: (row) => row.machine.name,
+    cell: ({ row }) => {
+      const value = row.getValue("machine") as string;
+      return <TextWithTooltip className="max-w-[200px]" text={value} />;
+    },
+  },
 ];
-
-function LatencyDisplay({ value }: { value: number }) {
-  return (
-    <div className="font-mono">
-      {new Intl.NumberFormat("en-US", { maximumFractionDigits: 3 }).format(
-        value
-      )}
-      <span className="text-muted-foreground">ms</span>
-    </div>
-  );
-}

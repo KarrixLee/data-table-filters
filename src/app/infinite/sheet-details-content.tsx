@@ -62,7 +62,7 @@ export function SheetDetailsContent({
     <dl {...props}>
       <div className="flex gap-4 py-2 border-b text-sm justify-between items-center">
         <dt className="text-muted-foreground">ID</dt>
-        <dd className="font-mono truncate">{data.uuid}</dd>
+        <dd className="font-mono truncate">{data.id}</dd>
       </div>
       <div className="flex gap-4 py-2 border-b text-sm justify-between items-center">
         <dt className="text-muted-foreground">Success</dt>
@@ -76,7 +76,7 @@ export function SheetDetailsContent({
       </div>
       <div className="flex gap-4 py-2 border-b text-sm justify-between items-center">
         <dt className="text-muted-foreground">Date</dt>
-        <dd className="font-mono text-right">{formatDate(data.date)}</dd>
+        <dd className="font-mono text-right">{formatDate(data.created_at)}</dd>
       </div>
       <div className="flex gap-4 py-2 border-b text-sm justify-between items-center">
         <dt className="text-muted-foreground">Status Code</dt>
@@ -91,25 +91,25 @@ export function SheetDetailsContent({
       </div>
       <div className="flex gap-4 py-2 border-b text-sm justify-between items-center">
         <dt className="text-muted-foreground">Host</dt>
-        <dd className="font-mono truncate">{data.host}</dd>
+        {/* <dd className="font-mono truncate">{data.host}</dd> */}
       </div>
       <div className="flex gap-4 py-2 border-b text-sm justify-between items-center">
         <dt className="text-muted-foreground">Pathname</dt>
-        <dd className="font-mono truncate">{data.pathname}</dd>
+        {/* <dd className="font-mono truncate">{data.pathname}</dd> */}
       </div>
       <div className="flex gap-4 py-2 border-b text-sm justify-between items-center">
         <dt className="text-muted-foreground">Region</dt>
         <dd className="font-mono text-right">
           <span className="text-muted-foreground text-xs">
-            {regions[data.regions[0]]}
+            {/* {regions[data.regions[0]]} */}
           </span>{" "}
-          {data.regions[0]}
+          {/* {data.regions[0]} */}
         </dd>
       </div>
       <div className="flex gap-4 py-2 border-b text-sm justify-between items-center">
         <dt className="text-muted-foreground">Latency</dt>
         <dd className="font-mono">
-          {formatMilliseconds(data.latency)}
+          {/* {formatMilliseconds(data.latency)} */}
           <span className="text-muted-foreground">ms</span>
         </dd>
       </div>
@@ -123,7 +123,7 @@ export function SheetDetailsContent({
               onClick={() => setOpen((prev) => !prev)}
               className="font-mono flex items-center gap-1"
             >
-              <FunctionSquare
+              {/* <FunctionSquare
                 className={cn(
                   "h-4 w-4",
                   data.percentile
@@ -131,7 +131,7 @@ export function SheetDetailsContent({
                     : "text-muted-foreground"
                 )}
               />
-              {!data.percentile ? "N/A" : `P${Math.round(data.percentile)}`}
+              {!data.percentile ? "N/A" : `P${Math.round(data.percentile)}`} */}
             </HoverCardTrigger>
             <HoverCardContent className="w-40 flex flex-col gap-2 p-2 text-xs">
               <p>
@@ -142,7 +142,7 @@ export function SheetDetailsContent({
                 rows.
               </p>
               <div className="flex flex-col gap-0.5">
-                {percentileArray.map(([key, value]) => {
+                {/* {percentileArray.map(([key, value]) => {
                   const active =
                     data.percentile &&
                     data.percentile === key &&
@@ -171,7 +171,7 @@ export function SheetDetailsContent({
                       </div>
                     </div>
                   );
-                })}
+                })} */}
               </div>
             </HoverCardContent>
           </HoverCard>
@@ -193,14 +193,14 @@ export function SheetDetailsContent({
               </div>
               <div className="flex flex-1 gap-2 items-center justify-end">
                 <div className="font-mono">
-                  {formatMilliseconds(data[phase])}
+                  {/* {formatMilliseconds(data[phase])} */}
                   <span className="text-muted-foreground">ms</span>
                 </div>
               </div>
-              <div
+              {/* <div
                 className={cn(getTimingColor(phase), "h-4")}
                 style={{ width: `${(data[phase] / data.latency) * 100}%` }}
-              />
+              /> */}
             </div>
           </div>
         ))}
