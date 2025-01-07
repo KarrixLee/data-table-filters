@@ -19,6 +19,7 @@ import {
 } from "@/lib/delimiters";
 import { REGIONS } from "@/constants/region";
 import { METHODS } from "@/constants/method";
+import { GPU, STATUS } from "@/constants/run-data-enum";
 
 // https://logs.run/i?sort=latency.desc
 
@@ -35,25 +36,29 @@ export const parseAsSort = createParser({
 
 export const searchParamsParser = {
   // CUSTOM FILTERS
-  success: parseAsArrayOf(parseAsBoolean, ARRAY_DELIMITER),
-  latency: parseAsArrayOf(parseAsInteger, SLIDER_DELIMITER),
-  "timing.dns": parseAsArrayOf(parseAsInteger, SLIDER_DELIMITER),
-  "timing.connection": parseAsArrayOf(parseAsInteger, SLIDER_DELIMITER),
-  "timing.tls": parseAsArrayOf(parseAsInteger, SLIDER_DELIMITER),
-  "timing.ttfb": parseAsArrayOf(parseAsInteger, SLIDER_DELIMITER),
-  "timing.transfer": parseAsArrayOf(parseAsInteger, SLIDER_DELIMITER),
-  status: parseAsArrayOf(parseAsInteger, SLIDER_DELIMITER),
-  regions: parseAsArrayOf(parseAsStringLiteral(REGIONS), ARRAY_DELIMITER),
-  method: parseAsArrayOf(parseAsStringLiteral(METHODS), ARRAY_DELIMITER),
-  host: parseAsString,
-  pathname: parseAsString,
-  date: parseAsArrayOf(parseAsTimestamp, RANGE_DELIMITER),
+  // success: parseAsArrayOf(parseAsBoolean, ARRAY_DELIMITER),
+  // latency: parseAsArrayOf(parseAsInteger, SLIDER_DELIMITER),
+  // "timing.dns": parseAsArrayOf(parseAsInteger, SLIDER_DELIMITER),
+  // "timing.connection": parseAsArrayOf(parseAsInteger, SLIDER_DELIMITER),
+  // "timing.tls": parseAsArrayOf(parseAsInteger, SLIDER_DELIMITER),
+  // "timing.ttfb": parseAsArrayOf(parseAsInteger, SLIDER_DELIMITER),
+  // "timing.transfer": parseAsArrayOf(parseAsInteger, SLIDER_DELIMITER),
+  // status: parseAsArrayOf(parseAsInteger, SLIDER_DELIMITER),
+  // regions: parseAsArrayOf(parseAsStringLiteral(REGIONS), ARRAY_DELIMITER),
+  // method: parseAsArrayOf(parseAsStringLiteral(METHODS), ARRAY_DELIMITER),
+  // host: parseAsString,
+  // pathname: parseAsString,
+  created_at: parseAsArrayOf(parseAsTimestamp, RANGE_DELIMITER),
   // REQUIRED FOR SORTING & PAGINATION
-  sort: parseAsSort,
-  size: parseAsInteger.withDefault(30),
-  start: parseAsInteger.withDefault(0),
+  // sort: parseAsSort,
+  limit: parseAsInteger.withDefault(30),
+  offset: parseAsInteger.withDefault(0),
   // REQUIRED FOR SELECTION
-  uuid: parseAsString,
+  // uuid: parseAsString,
+  id: parseAsString,
+
+  gpu: parseAsArrayOf(parseAsStringLiteral(GPU), ARRAY_DELIMITER),
+  status: parseAsArrayOf(parseAsStringLiteral(STATUS), ARRAY_DELIMITER),
 };
 
 export const searchParamsCache = createSearchParamsCache(searchParamsParser);

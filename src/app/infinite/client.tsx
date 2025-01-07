@@ -28,33 +28,11 @@ export function Client() {
   const chartData = lastPage?.meta?.chartData;
   const totalFetched = flatData?.length;
 
-  const { sort, start, size, uuid, ...filter } = search;
+  const { offset, limit, id, ...filter } = search;
 
   const filterFields = React.useMemo(
     () =>
       defaultFilterFields.map((field) => {
-        if (
-          field.value === "latency" ||
-          field.value === "timing.dns" ||
-          field.value === "timing.connection" ||
-          field.value === "timing.tls" ||
-          field.value === "timing.ttfb" ||
-          field.value === "timing.transfer" ||
-          field.value === "status"
-        ) {
-          field.options =
-            totalFilters?.[field.value].map((value) => ({
-              label: `${value}`,
-              value,
-            })) ?? field.options;
-        }
-        if (field.value === "host" || field.value === "pathname") {
-          field.options =
-            totalFilters?.[field.value].map((value) => ({
-              label: `${value}`,
-              value,
-            })) ?? field.options;
-        }
         return field;
       }),
     [totalFilters]
@@ -74,8 +52,8 @@ export function Client() {
           value,
         }))
         .filter(({ value }) => value ?? undefined)}
-      defaultColumnSorting={sort ? [sort] : undefined}
-      defaultRowSelection={search.uuid ? { [search.uuid]: true } : undefined}
+      // defaultColumnSorting={sort ? [sort] : undefined}
+      defaultRowSelection={search.id ? { [search.id]: true } : undefined}
       filterFields={filterFields}
       isFetching={isFetching}
       isLoading={isLoading}

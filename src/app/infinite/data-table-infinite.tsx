@@ -132,6 +132,7 @@ export function DataTableInfinite<TData, TValue>({
       const onPageBottom =
         window.innerHeight + Math.round(window.scrollY) >=
         document.body.offsetHeight;
+
       if (onPageBottom && !isFetching && totalRowsFetched < filterRows) {
         fetchNextPage();
       }
@@ -153,7 +154,7 @@ export function DataTableInfinite<TData, TValue>({
     },
     enableMultiRowSelection: false,
     // @ts-ignore FIXME: because it is not in the types
-    getRowId: (row, index) => `${row?.uuid}` || `${index}`,
+    getRowId: (row, index) => `${row?.id}` || `${index}`,
     onColumnVisibilityChange: setColumnVisibility,
     onColumnFiltersChange: setColumnFilters,
     onRowSelectionChange: setRowSelection,
@@ -215,10 +216,10 @@ export function DataTableInfinite<TData, TValue>({
   // FIXME: cannot share a uuid with the sheet details
   React.useEffect(() => {
     if (Object.keys(rowSelection)?.length && !selectedRow) {
-      setSearch({ uuid: null });
+      setSearch({ id: null });
       setRowSelection({});
     } else {
-      setSearch({ uuid: Object.keys(rowSelection)?.[0] || null });
+      setSearch({ id: Object.keys(rowSelection)?.[0] || null });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rowSelection, selectedRow]);
@@ -239,10 +240,10 @@ export function DataTableInfinite<TData, TValue>({
               filterFields={filterFields}
             />
           </div>
-          <Separator className="my-2" />
+          {/* <Separator className="my-2" />
           <div className="p-2">
             <SocialsFooter />
-          </div>
+          </div> */}
         </div>
         <div
           className={cn(
@@ -275,7 +276,7 @@ export function DataTableInfinite<TData, TValue>({
             <TimelineChart
               data={chartData}
               className="-mb-2"
-              handleFilter={table.getColumn("date")?.setFilterValue}
+              handleFilter={table.getColumn("created_at")?.setFilterValue}
             />
           </div>
           <div className="z-0">
