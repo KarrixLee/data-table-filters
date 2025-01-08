@@ -359,6 +359,7 @@ export function DataTableInfinite<TData, TValue>({
                         onClick={() => fetchNextPage()}
                         size="sm"
                         variant="outline"
+                        className="text-xs"
                       >
                         {isFetching ? (
                           <LoaderCircle className="mr-2 h-4 w-4 animate-spin" />
@@ -366,7 +367,7 @@ export function DataTableInfinite<TData, TValue>({
                         Load More
                       </Button>
                     ) : (
-                      <p className="text-muted-foreground text-sm">
+                      <p className="text-muted-foreground text-xs">
                         No more data to load (total:{" "}
                         <span className="font-medium font-mono">
                           {formatCompactNumber(totalRows)}
