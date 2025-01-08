@@ -34,7 +34,7 @@ export const columns: ColumnDef<ColumnSchema>[] = [
       const value = row.getValue("id") as string;
       return (
         <TextWithTooltip
-          className="font-mono text-xs max-w-[85px]"
+          className="font-mono text-[11px] max-w-[85px]"
           text={value}
         />
       );
@@ -88,7 +88,7 @@ export const columns: ColumnDef<ColumnSchema>[] = [
     },
     filterFn: "inDateRange",
     meta: {
-      headerClassName: "h-5 text-xs",
+      headerClassName: "h-5 text-xs max-w-[100px]",
     },
   },
   {
@@ -160,6 +160,44 @@ export const columns: ColumnDef<ColumnSchema>[] = [
       return <TextWithTooltip className="max-w-[120px]" text={value} />;
     },
     meta: {
+      headerClassName: "h-5 text-xs",
+    },
+  },
+  {
+    accessorKey: "workflow_id",
+    header: "Workflow ID",
+    accessorFn: (row) => row.workflow?.id,
+    cell: ({ row }) => {
+      const value = row.getValue("workflow_id") as string;
+      return <TextWithTooltip className="max-w-[200px]" text={value} />;
+    },
+    meta: {
+      headerClassName: "h-5 text-xs",
+    },
+  },
+  {
+    id: "duration",
+    accessorFn: (row) => row["duration"],
+    header: ({ column }) => (
+      <DataTableColumnHeader
+        column={column}
+        title="Duration"
+        className="text-xs"
+      />
+    ),
+    cell: ({ row }) => {
+      const value = row.getValue("duration");
+      if (!value || typeof value !== "string") return "-";
+      return (
+        <TextWithTooltip
+          className="max-w-[100px]"
+          text={`${Number(value).toFixed(1)} secs`}
+        />
+      );
+    },
+    filterFn: "inNumberRange",
+    meta: {
+      label: "Duration",
       headerClassName: "h-5 text-xs",
     },
   },

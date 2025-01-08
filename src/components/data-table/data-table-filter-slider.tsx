@@ -42,7 +42,7 @@ export function DataTableFilterSlider<TData>({
           </Label>
           <InputWithAddons
             placeholder="from"
-            trailing="ms"
+            trailing="secs"
             containerClassName="mb-2 h-9 rounded-lg"
             type="number"
             name={`min-${value}`}
@@ -69,7 +69,7 @@ export function DataTableFilterSlider<TData>({
           </Label>
           <InputWithAddons
             placeholder="to"
-            trailing="ms"
+            trailing="secs"
             containerClassName="mb-2 h-9 rounded-lg"
             type="number"
             name={`max-${value}`}

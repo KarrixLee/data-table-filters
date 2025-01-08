@@ -37,4 +37,18 @@ export const filterFields = [
     type: "checkbox",
     options: ORIGIN.map((origin) => ({ label: origin, value: origin })),
   },
+  {
+    label: "Workflow",
+    value: "workflow_id",
+    type: "input",
+    options: [{ label: "", value: "" }], // REMINDER: this is a placeholder to set the type in the client.tsx
+  },
+  {
+    label: "Run Duration",
+    value: "duration",
+    type: "slider",
+    min: 0,
+    max: 300,
+    options: [{ label: "10", value: 10 }], // REMINDER: this is a placeholder to set the type in the client.tsx
+  },
 ] satisfies DataTableFilterField<ColumnSchema>[];

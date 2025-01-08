@@ -98,6 +98,7 @@ export function DataTableInfinite<TData, TValue>({
       "workflow name": false,
       machine: false,
       origin: false,
+      workflow_id: false,
     });
   const [controlsOpen, setControlsOpen] = useLocalStorage(
     "data-table-controls",
