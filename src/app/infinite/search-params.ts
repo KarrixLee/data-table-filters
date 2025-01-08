@@ -51,7 +51,7 @@ export const searchParamsParser = {
   created_at: parseAsArrayOf(parseAsTimestamp, RANGE_DELIMITER),
   // REQUIRED FOR SORTING & PAGINATION
   // sort: parseAsSort,
-  limit: parseAsInteger.withDefault(30),
+  limit: parseAsInteger.withDefault(60),
   offset: parseAsInteger.withDefault(0),
   // REQUIRED FOR SELECTION
   // uuid: parseAsString,
